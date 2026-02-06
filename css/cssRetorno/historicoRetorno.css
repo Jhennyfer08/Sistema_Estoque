@@ -1,0 +1,40 @@
+
+.container {
+    width: 70%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: center;
+    justify-content: center;
+}
+
+table {
+    margin-top: 30px;
+}
+
+thead tr {
+    border: none;
+    border-bottom: 3px solid #aaaaff;
+    background-color: #cdcdcd;
+}
+
+tr {
+    height: 50px;
+    border: 1px solid #000;
+    border-right: none;
+    border-left: none;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+    /* border:2px solid #000; */
+}
+
+td {
+    border-collapse: collapse;
+    border: none;
+
+}

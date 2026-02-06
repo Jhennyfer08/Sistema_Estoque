@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/config.css">
+    <link rel="stylesheet" href="/css/caixaTotal.css">
+    <title>Nome da empresa - Estoque</title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="/pages/pag_selecao.html">
+                < Transferências</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <nav class="nav-bar">
+                <p id="historicoTr">Histórico de Tranferências</p>
+                <p id="secaoTranferencia" onclick="RealizarTr()">Realizar Transferência</p>
+                <span></span>
+            </nav>
+
+            <div id="historicoTrTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody bo>
+                        <tr>
+                            <td>876543</td>
+                            <td>P1</td>
+                            <td>34U</td>
+                            <td>.</td>
+                        </tr>
+                        <tr>
+                            <td>456782</td>
+                            <td>P2</td>
+                            <td>2M</td>
+                            <td>.</td>
+                        </tr>
+                        <tr>
+                            <td>345679</td>
+                            <td>P3</td>
+                            <td>68U</td>
+                            <td>.</td>
+                        </tr>
+                        <tr>
+                            <td>987627</td>
+                            <td>P4</td>
+                            <td>5M</td>
+                            <td>.</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!--  -->
+            </div>
+        </div>
+    </main>
+
+
+    <script src="/js/functionTr.js"></script>
+</body>
+
+</html>

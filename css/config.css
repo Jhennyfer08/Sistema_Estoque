@@ -1,0 +1,64 @@
+/*CONFIGURAÇÕES*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis de cor [DEFAULT MODE] */
+:root {
+    --background-color: #F8F8FF;
+    --primary-color: #803333;
+    --secondary-color: #;
+    --error: #;
+    --success: #;
+    --white: #;
+    --black: #121212;
+}
+
+/* Variáveis de cor [DARK MODE] */
+
+/* Variáveis de texto */
+:root{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    color:var(--black);
+}
+/* Variáveis de espaçamento */
+
+/* F CONFIGURAÇÕES*/
+
+
+/* Elementos padrão */
+
+body {
+    width: 100%;
+    min-height: 110vh;
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: 100%;
+    height: 56px;
+    margin-bottom: 30px;
+    background-color: #5e5e5e;
+}
+
+header nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 20px;
+}
+
+header nav a {
+    text-decoration: none;
+    display: flex;
+    justify-self: left;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.3em;
+    align-self: center;
+}
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/config.css">
+    <link rel="stylesheet" href="/css/cadastro.css">
+    <title>Nome da empresa - Estoque</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/pages/cadastro.html">
+                < Cadastro Material</a>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <form action="#" method="post">
+
+            <section class="input-group">
+                <div class="input-item descricao">
+                    <label for="descricao">Descricao:</label>
+                    <input type="text" id="descricao" name="descricao" required>
+                </div>
+                <div class="input-item valor">
+                    <label for="valor">Valor:</label>
+                    <input type="text" id="valor" name="valor" required>
+                </div>
+            </section>
+
+            <section class="input-group">
+                <div class="input-item">
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" name="quantidade" required>
+                </div>
+
+                <div class="input-item">
+                    <label for="unidadeMedida">Unidade de Medida:</label>
+                    <select id="unidadeMedida" name="unidadeMedida" required>
+                        <option value="">Selecione uma unidade</option>
+                        <option value="unidade">Grama (UN)</option>
+                        <option value="pacote">Pacote (PC)</option>
+                        <option value="metro">Metro (M)</option>
+                    </select>
+                </div>
+            </section>
+
+            <div class="input-item" id="fornecedorContainer">
+                <label for="fornecedor">Fornecedor:</label>
+                <div class="select-menu">
+                    <select name="fornecedor" id="fornecedor" required>
+                        <option value="">Selecione um fornecedor</option>  
+                        <option value="fornecedor1">Fornecedor 1</option>
+                        <option value="fornecedor2">Fornecedor 2</option>
+                        <option value="fornecedor3">Fornecedor 3</option>
+                    </select>
+                    <button id="addBtn" class="adicionar-btn">&#43</button>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="cadastro-btn">Cadastrar Material</button>
+        </form>
+    </div>
+
+    <script src="/js/cadastro.js"></script>
+</body>
+
+</html>

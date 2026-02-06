@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/config.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+    <!-- Fonts end -->
+    <title>Login - Depósito</title>
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="logo">
+                <img src="/img/instagram.png" alt="">
+            </div>
+            <form action="" method="post">
+                <label for="">Login</label>
+                <input type="text" class="input-form" placeholder="Digite seu número de login" id="login" required>
+
+                <label for="">Senha</label>
+                <input type="password" class="input-form" placeholder="Digite a sua senha" name="senha" id="senha"
+                    required pattern="{4, 8}">
+
+                <div class="captchaImg-container">
+                    <img src="" alt="Imagem CAPTCHA" id="captchaImage">
+
+                    <button type="button" class="refresh-btn" id="refreshButton">
+                        <img src="/img/refreshIcon.png" alt="Atualizar">
+                    </button>
+                </div>
+
+                <label for="">Digite o código a baixo: </label>
+                <input type="text" class="input-form" id="captchaInput" name="captchaId" required>
+
+                <button type="submit" class="submit-btn" id="submitButton" disabled>Entrar</button>
+                <p id="errorMessage" class="message-btn">Captcha incorreto. Tente novamente </p>
+                <p id="successMessage" class="message-btn">Correto! </p>
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
