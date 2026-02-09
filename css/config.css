@@ -10,8 +10,8 @@
     --background-color: #F8F8FF;
     --primary-color: #803333;
     --secondary-color: #;
-    --error: #;
-    --success: #;
+    --error: #7c0c26;
+    --success: #1b9470;
     --white: #;
     --black: #121212;
 }
@@ -62,3 +62,9 @@ header nav a {
     align-self: center;
 }
 
+/* FORMULÁRIOS */
+.formInvalido{
+    /* display: none; */
+    font-size: .8em;
+    color: var(--error);
+}

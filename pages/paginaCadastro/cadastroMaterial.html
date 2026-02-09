@@ -19,54 +19,59 @@
 
 
     <div class="container">
-        <form action="#" method="post">
+        <form action="#" method="POST" id="form">
 
             <section class="input-group">
-                <div class="input-item descricao">
-                    <label for="descricao">Descricao:</label>
-                    <input type="text" id="descricao" name="descricao" required>
+                <div class="input-item descricao" id="descricao">
+                    <label for="input_descricao">Descricao:</label>
+                    <input type="text" id="input_descricao" name="descricao" required>
+                    <span class="form-error"></span>
                 </div>
-                <div class="input-item valor">
-                    <label for="valor">Valor:</label>
-                    <input type="text" id="valor" name="valor" required>
+                <div class="input-item valor" id="valor">
+                    <label for="input_valor">Valor:</label>
+                    <input type="text" id="input_valor" name="valor" inputmode="numeric" required>
                 </div>
             </section>
 
             <section class="input-group">
-                <div class="input-item">
-                    <label for="quantidade">Quantidade:</label>
-                    <input type="number" id="quantidade" name="quantidade" required>
+                <div class="input-item" id="quantidade">
+                    <label for="input_quantidade">Quantidade:</label>
+                    <input type="text" id="input_quantidade" name="quantidade" inputmode="numeric" required>
+                    <span class="form-error">Esse campo precisa ser preenchido com números</span>
                 </div>
 
-                <div class="input-item">
-                    <label for="unidadeMedida">Unidade de Medida:</label>
-                    <select id="unidadeMedida" name="unidadeMedida" required>
+                <div class="input-item" id="unidade">
+                    <label for="input_unidadeMedida">Unidade de Medida:</label>
+                    <select id="input_unidadeMedida" name="unidadeMedida" required>
                         <option value="">Selecione uma unidade</option>
                         <option value="unidade">Grama (UN)</option>
                         <option value="pacote">Pacote (PC)</option>
                         <option value="metro">Metro (M)</option>
                     </select>
+                    <span class="form-error">É preciso selecionar pelo menos uma opção</span>
                 </div>
             </section>
 
             <div class="input-item" id="fornecedorContainer">
-                <label for="fornecedor">Fornecedor:</label>
+                <label for="input_fornecedor">Fornecedor:</label>
                 <div class="select-menu">
-                    <select name="fornecedor" id="fornecedor" required>
-                        <option value="">Selecione um fornecedor</option>  
+                    <select name="fornecedor" id="input_fornecedor" required>
+                        <option value="">Selecione um fornecedor</option>
                         <option value="fornecedor1">Fornecedor 1</option>
                         <option value="fornecedor2">Fornecedor 2</option>
                         <option value="fornecedor3">Fornecedor 3</option>
                     </select>
+                    
                     <button id="addBtn" class="adicionar-btn">&#43</button>
                 </div>
+                <span class="form-error">É preciso selecionar pelo menos uma opção</span>
             </div>
 
             <button type="submit" id="submitBtn" class="cadastro-btn">Cadastrar Material</button>
         </form>
     </div>
 
-    <script src="/js/cadastro.js"></script>
+    <script src="/js/cadastroMaterial.js"></script>
 </body>
 
 </html>
