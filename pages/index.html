@@ -27,11 +27,11 @@
                 <img src="/img/instagram.png" alt="">
             </div>
             <form action="" method="post">
-                <label for="">Login</label>
-                <input type="text" class="input-form" placeholder="Digite seu número de login" id="login" required>
+                <label for="input_login">Login</label>
+                <input type="text" class="input-form" placeholder="Digite seu número de login" name="login" id="input_login" required>
 
-                <label for="">Senha</label>
-                <input type="password" class="input-form" placeholder="Digite a sua senha" name="senha" id="senha"
+                <label for="input_senha">Senha</label>
+                <input type="password" class="input-form" placeholder="Digite a sua senha" id="input_senha"
                     required pattern="{4, 8}">
 
                 <div class="captchaImg-container">
@@ -42,12 +42,11 @@
                     </button>
                 </div>
 
-                <label for="">Digite o código a baixo: </label>
+                <label for="captchaInput">Digite o código a baixo: </label>
                 <input type="text" class="input-form" id="captchaInput" name="captchaId" required>
 
                 <button type="submit" class="submit-btn" id="submitButton" disabled>Entrar</button>
                 <p id="errorMessage" class="message-btn">Captcha incorreto. Tente novamente </p>
-                <p id="successMessage" class="message-btn">Correto! </p>
             </form>
         </div>
     </main>

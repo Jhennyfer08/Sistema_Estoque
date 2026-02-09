@@ -15,17 +15,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: var(--space-32px);
 }
 
 .opcao-retorno {
     width: 100%;
     height: 150px;
     text-decoration: none;
-    color: #000;
+    color: var(--black);
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: blueviolet;
+    background-color: var(--secondary-color);
 }

@@ -18,8 +18,8 @@ function RealizarTr() {
 
         div.innerHTML = `
             <div class="menu-selecao">
-                <h3> Selecione os materiais a serem retornados </h3 >
-                <h4 id="selecionar-todos">Selecionar todos</h4>
+                <p> Selecione os materiais a serem retornados </p >
+                <p id="selecionar-todos">Selecionar todos</p>
             </div>
 
             <table id="materialTr">
