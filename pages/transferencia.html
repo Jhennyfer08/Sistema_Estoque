@@ -21,12 +21,12 @@
     <main>
         <div class="container">
             <nav class="nav-bar">
-                <p id="historicoTr">Histórico de Tranferências</p>
-                <p id="secaoTranferencia" onclick="RealizarTr()">Realizar Transferência</p>
+                <p id="lista">Histórico de Tranferências</p>
+                <p id="container">Realizar Transferência</p>
                 <span></span>
             </nav>
 
-            <div id="historicoTrTable">
+            <div id="listaTable">
                 <table>
                     <thead>
                         <tr>
@@ -68,11 +68,59 @@
 
                 <!--  -->
             </div>
+
+            <div id="containerSecao">
+
+                <div class="menu-selecao">
+                    <p id="aviso"> Selecione os materiais a serem retornados </p>
+                    <p id="selecionar-todos">Selecionar todos</p>
+                </div>
+
+                <table id="material">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>876543</td>
+                            <td>P1</td>
+                            <td>34U</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>456782</td>
+                            <td>P2</td>
+                            <td>2M</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>345679</td>
+                            <td>P3</td>
+                            <td>68U</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>987627</td>
+                            <td>P4</td>
+                            <td>5M</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="submit" id="buttonConfirmar" onclick="PesquisarId()">Confirmar Transferência</button>
+            </div>
         </div>
     </main>
 
 
-    <script src="/js/functionTr.js"></script>
+    <script src="/js/display.js"></script>
 </body>
 
 </html>

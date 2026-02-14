@@ -22,12 +22,12 @@
 
         <div class="container">
             <nav class="nav-bar">
-                <p id="materialDisponivel">Material disponível</p>
-                <p id="materialRetornar" onclick="RealizarRt()">Material á retornar</p>
+                <p id="lista">Material disponível</p>
+                <p id="container">Material á retornar</p>
                 <span></span>
             </nav>
 
-            <div id="materialDisponivelTable">
+            <div id="listaTable">
                 <table>
                     <thead>
                         <tr>
@@ -67,10 +67,58 @@
 
                 </table>
             </div>
+
+            <div id="containerSecao">
+
+                <div class="menu-selecao">
+                    <p id="aviso"> Selecione os materiais a serem retornados </p>
+                    <p id="selecionar-todos">Selecionar todos</p>
+                </div>
+
+                <table id="materialRt">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>876543</td>
+                            <td>P1</td>
+                            <td>34U</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>456782</td>
+                            <td>P2</td>
+                            <td>2M</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>345679</td>
+                            <td>P3</td>
+                            <td>68U</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>987627</td>
+                            <td>P4</td>
+                            <td>5M</td>
+                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="submit" id="buttonConfirmar" onclick="PesquisarId()">Confirmar Retorno</button>
+            </div>
         </div>
     </main>
 
-    <script src="/js/functioRt.js"></script>
+    <script src="/js/display.js"></script>
 </body>
 
 </html>
