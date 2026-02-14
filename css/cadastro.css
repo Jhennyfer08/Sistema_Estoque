@@ -1,5 +1,4 @@
 .container {
-    width: 70%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -23,7 +22,6 @@
     width: 15%;
 }
 
-
 .select-menu {
     width: 100%;
     display: flex;
@@ -34,16 +32,4 @@
 .select-menu select,
 .select-menu input {
     width: 100%;
-}
-
-.toggle-btn {
-    width: 8%;
-    height: var(--space-32px);
-    padding: var(--space-4px);
-    border: none;
-    border-radius: 8px;
-    display: flex;
-    align-self: flex-end;
-    justify-content: center;
-    align-items: center;
 }

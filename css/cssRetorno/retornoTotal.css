@@ -1,6 +1,5 @@
 
 .container {
-    width: 70%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -14,17 +13,18 @@
     flex-direction: column;
 }
 
-.input-campo{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 form label{
     display: block;
 }
 
-form input {
-    width: 85%;
+button{
+    width: 10%;
+    height: 37px;
 }
 
+@media (max-width: 576px) {
+
+    button {
+        width: 100%;
+    }
+}

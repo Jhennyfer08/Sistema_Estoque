@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         {
             id: 'cpf',
-            regra: (valor) => /^(\d{3}\.?\d{3}\.?\d{3}-?\d{2})$/.test(valor),
+            regra: (valor) => valor.length == 11 && valor.replace(/[^0-9]/g, ''),
             mensagem: 'CPF inválido.'
         },
 
@@ -160,4 +160,26 @@ selectMenu.forEach(menu => {
 
         inputmode = !inputmode;
     });
-})
+});
+
+
+function inputValidate(campoId) {
+
+    const inputs = campoId.querySelectorAll('input');
+
+    return Array.from(inputs).map(input => {
+
+        if (input.type === 'text') {
+
+            return input.value.trim();
+
+        } else if (input.getAttribute('inputmode') === 'numeric' || input.type === 'number') {
+
+            return input.value.replace(/[^0-9]/g, '');
+
+        }
+        else {
+            return input;
+        }
+    });
+}
