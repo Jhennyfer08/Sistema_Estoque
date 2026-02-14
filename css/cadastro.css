@@ -33,3 +33,12 @@
 .select-menu input {
     width: 100%;
 }
+
+
+/*REPONSIVIDADE*/
+
+@media (max-width: 450px) {
+    .valor{
+        width: 100%;
+    }
+}

@@ -73,3 +73,30 @@ h2 {
     height: auto;
     object-fit: contain;
 }
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1024px){
+
+}
+
+@media (max-width: 768px){
+
+}
+
+@media (max-width: 480px){
+
+}
+
+@media (max-width: 320px){
+
+    body{
+        font-size: var(--fs-pp);
+    }
+    .container{
+        width: 90%;
+        height: auto;
+    }
+
+}

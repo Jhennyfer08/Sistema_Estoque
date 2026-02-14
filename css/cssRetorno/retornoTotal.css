@@ -22,9 +22,14 @@ button{
     height: 37px;
 }
 
-@media (max-width: 576px) {
+/*RESPONSIVIDADE*/
+@media (max-width: 600px) {
 
-    button {
+    .input-campo{
+        flex-direction: column;
+    }
+
+    button{
         width: 100%;
     }
 }
