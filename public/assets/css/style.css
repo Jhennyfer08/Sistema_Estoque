@@ -1,0 +1,101 @@
+.container {
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
+
+.container form {
+    width: 40%;
+    height: auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* CAPTCHA */
+.captchaImg-container {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+#captchaImage {
+    width: 80%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.message-btn {
+    display: none;
+}
+
+a{
+    text-align: center;
+}
+
+/*BTN*/
+.submit-btn {
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    transition: ease-in-out 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translate(0px, 2px);
+    box-shadow: 3px 4px 5px 0px #0005;
+}
+
+#refreshButton {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 0;
+    display: flex;
+    transition: ease-in-out 0.2s;
+}
+
+#refreshButton:hover {
+    transform: translate(-2px);
+    box-shadow: 3px 4px 5px 0px #0005;
+}
+
+#refreshButton img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* BTN end */
+/* CAPTCHA */

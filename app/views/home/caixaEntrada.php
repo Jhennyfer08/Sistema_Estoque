@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../public/assets/css/config.css">
+    <link rel="stylesheet" href="../../../public/assets/css/caixaTotal.css">
+    <title>Nome da empresa - Estoque</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="home.php">
+                < Caixa de Entrada</a>
+        </nav>
+    </header>
+
+
+    <main>
+        <div class="container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>876543</td>
+                        <td>P1</td>
+                        <td><!-- <input type="number" name="quantidade" id="qtd">--></td> 
+                        <td>
+                            <img src="../../../public/assets/img/icons/accept.png" alt="">
+                            <img src="../../../public/assets/img/icons/delete.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>456782</td>
+                        <td>P2</td>
+                        <td>2M</td>
+                        <td>
+                            <img src="../../../public/assets/img/icons/accept.png" alt="">
+                            <img src="../../../public/assets/img/icons/delete.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>345679</td>
+                        <td>P3</td>
+                        <td>68U</td>
+                        <td>
+                            <img src="../../../public/assets/img/icons/accept.png" alt="">
+                            <img src="../../../public/assets/img/icons/delete.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>987627</td>
+                        <td>P4</td>
+                        <td>5M</td>
+                        <td>
+                            <img src="../../../public/assets/img/icons/accept.png" alt="">
+                            <img src="../../../public/assets/img/icons/delete.png" alt="">
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
