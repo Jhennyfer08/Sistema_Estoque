@@ -18,7 +18,7 @@ class MaterialController
             'valor' => $_POST['mat_valor'],
             'quantidade' => $_POST['mat_quantidade'],
             'unidadeMedida' => $_POST['mat_unidadeMedida'],
-            'status' => $_POST['mat_status'],
+            'modo' => $_POST['mat_modo'],
             'fornecedor' => $_POST['mat_fornecedor'],
             'cep' => $_POST['end_cep'] ?? null,
             'rua' => $_POST['end_rua'] ?? null,
@@ -54,8 +54,8 @@ class MaterialController
             $erros[] = 'Selecione uma unidade de medida';
         }
 
-        if (empty($dados['status'])) {
-            $erros[] = 'Selecione um status';
+        if (empty($dados['modo'])) {
+            $erros[] = 'Selecione um modo';
         }
 
         //Tabela Endereço

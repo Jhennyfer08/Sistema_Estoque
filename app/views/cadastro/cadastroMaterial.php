@@ -59,10 +59,10 @@
                     </div>
                 </section>
 
-                <div class="input-item" id="status">
-                    <label for="select_status">Status:</label>
-                    <div class="select-menu" data-campo="status">
-                        <select id="select_status" name="mat_status" required>
+                <div class="input-item" id="modo">
+                    <label for="select_modo">Status:</label>
+                    <div class="select-menu" data-campo="modo">
+                        <select id="select_modo" name="mat_modo" required>
                             <option value="ativo">Ativo</option>
                             <option value="inativo">Inativo</option>
                         </select>

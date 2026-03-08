@@ -20,7 +20,7 @@
     <main>
         <div class="container">
 
-            <form action="#" method="POST" id="form">
+            <form action="/estoque/public/cadastro/usuario/enviar" method="POST" id="form">
 
                 <section class="input-group-number">
                     <div class="input-item" id="matricula">
@@ -100,7 +100,9 @@
                     <div class="select-menu" data-campo="funcao">
                         <select id="select_funcao" name="usu_funcao" required>
                             <option value="" selected disabled>Selecione uma função</option>
-                            <option value="TecnicoCampo">Técnico de Campo</option>
+                            <?php foreach ($funcoes as $funcao): ?>
+                                <option value="<?= $funcao['fun_id'] ?>"><?= $funcao['fun_nome'] ?></option>
+                            <?php endforeach; ?>
                             <option value="AuxiliarAdministrativo">Auxiliar Administrativo</option>
                             <option value="Supervisor">Supervisor</option>
                         </select>
@@ -111,10 +113,10 @@
                     <span class="form-error"></span>
                 </div>
 
-                <div class="input-item" id="status">
-                    <label for="select_status">Status:</label>
-                    <div class="select-menu" data-campo="status">
-                        <select id="select_status" name="usu_status" required>
+                <div class="input-item" id="modo">
+                    <label for="select_modo">Status:</label>
+                    <div class="select-menu" data-campo="modo">
+                        <select id="select_modo" name="usu_modo" required>
                             <option value="ativo">Ativo</option>
                             <option value="inativo">Inativo</option>
                         </select>

@@ -15,7 +15,7 @@ class UsuarioModel
 
         $this->db->beginTransaction();
         try {
-            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_senha, usu_status, usu_permissao, usu_setor_id, usu_funcao_id, usu_endereco_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :senha, :status, :permissao, :setor, :funcao, :endereco)');
+            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_senha, usu_modo, usu_permissao, usu_setor_id, usu_funcao_id, usu_endereco_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :senha, :modo, :permissao, :setor, :funcao, :endereco)');
 
             $stmt->execute([
                 ':matricula' => $dados['matricula'],
@@ -25,7 +25,7 @@ class UsuarioModel
                 ':data_contrato' => $dados['data_contrato'],
                 ':email' => $dados['email'],
                 password_hash($dados['senha'], PASSWORD_DEFAULT),
-                ':status' => $dados['status'],
+                ':modo' => $dados['modo'],
                 ':permissao' => $dados['permissao'],
                 ':setor' => $dados['setor_id'],
                 ':funcao' => $dados['funcao_id'],
@@ -62,6 +62,68 @@ class UsuarioModel
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
             throw new Exception('Erro ao buscar os dados (selectById). 402');
+        }
+    }
+
+    public function update(array $dados, $id): array
+    {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare("UPDATE tb_ usuario SET 
+         usu_codigo = :matricula,
+         usu_cpf = :cpf,
+         usu_nome = :nome,
+         usu_data_nasc = :data_nasc,
+         usu_data_cont = :data_contrato,
+         usu_email = :email,
+         usu_senha = :senha,
+         usu_modo = :modo,
+         usu_permissao = :permissao,
+         usu_setor = :setor,
+         usu_funcao = :funcao,
+         usu_endereco = :endereco_id,
+         WHERE usu_id = :id
+        ");
+
+            $stmt->execute([
+                ':matricula' => $dados['matricula'],
+                ':cpf' => $dados['cpf'],
+                ':nome' => $dados['nome'],
+                ':data_nasc' => $dados['data_nasc'],
+                ':data_contrato' => $dados['data_contrato'],
+                ':email' => $dados['email'],
+                ':senha' => $dados['senha'],
+                ':modo' => $dados['modo'],
+                ':permissao' => $dados['permissao'],
+                ':setor' => $dados['setor'],
+                ':funcao' => $dados['funcao'],
+                ':endereco_id' => $dados['endereco_id'],
+                ':id' => $id
+            ]);
+
+            $this->db->commit();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao buscar os dados (selectById). 402');
+        }
+    }
+
+    public function delete($id): bool
+    {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare("DELETE * FROM tb_usuario WHERE usu_id = :id");
+            $stmt->execute([':id' => $id]);
+            $this->db->commit();
+            return true;
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao deletar os dados (delete). 402');
         }
     }
 }

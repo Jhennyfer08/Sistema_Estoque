@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         {
-            id: 'status',
+            id: 'modo',
             regra: (valor) => valor !== "",
             mensagem: 'Selecione pelo menos uma opção'
         },

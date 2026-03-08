@@ -40,11 +40,23 @@ $rotas = [
         'permissao' => ['A', 'F']
     ],
 
-    'home/cadastro' => [
+    '/cadastro' => [
+        'controller' => UsuarioController::class,
+        'metodo' => '',
+        'permissao' => ['A']
+    ],
+
+    '/cadastro/usuario' => [
         'controller' => UsuarioController::class,
         'metodo' => 'create',
         'permissao' => ['A']
-    ]
+    ],
+
+    '/cadastro/usuario/enviar' => [
+        'controller' => UsuarioController::class,
+        'metodo' => 'store',
+        'permissao' => ['A']
+    ],
 ];
 
 if (!isset($rotas[$rotaBase])) {

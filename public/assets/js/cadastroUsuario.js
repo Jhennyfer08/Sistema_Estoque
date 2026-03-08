@@ -157,11 +157,11 @@ function removeErro(campo) {
 function validateCampo(config) {
 
     const campo = document.getElementById(config.id)
-    const inputNome = campo.querySelector('input, select');
+    const input = campo.querySelector('input, select');
 
     function validar() {
 
-        let valor = inputNome.value
+        let valor = input.value
 
         if (config.numeric) {
             valor = valor.replace(/\D/g, '')
@@ -171,7 +171,7 @@ function validateCampo(config) {
             valor = valor.slice(0, config.max)
         }
 
-        inputNome.value = valor;
+        input.value = valor;
 
         const valorFinal = valor.trim();
 
@@ -183,10 +183,10 @@ function validateCampo(config) {
 
     }
 
-    if (inputNome.tagName === "SELECT") {
-        inputNome.addEventListener("change", validar);
+    if (input.tagName === "SELECT") {
+        input.addEventListener("change", validar);
     } else {
-        inputNome.addEventListener("input", validar);
+        input.addEventListener("input", validar);
     }
 
 }

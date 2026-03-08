@@ -21,6 +21,9 @@ class UsuarioController
 
     public function create(): void
     {
+        $setores = $this->setorModel->selectAll();
+        $funcoes = $this->funcaoModel->selectAll();
+
         require_once __DIR__ . '/../views/cadastro/cadastroUsuario.php';
     }
 
@@ -35,13 +38,13 @@ class UsuarioController
             if (!empty($_POST['novo_setor'])) {
                 $setor_id = $this->setorModel->insert($_POST['novo_setor']);
             } else {
-                $setor_id = $_POST['setor_id'];
+                $setor_id = $dados['setor_id'];
             }
 
             if (!empty($_POST['novo_funcao'])) {
                 $funcao_id = $this->funcaoModel->insert($_POST['nova_funcao']);
             } else {
-                $funcao_id = $_POST['funcao_id'];
+                $funcao_id = $dados['funcao_id'];
             }
 
             $this->usuarioModel->insert([
@@ -52,11 +55,13 @@ class UsuarioController
                 ':data_contrato' => $dados['data_contrato'],
                 ':email' => $dados['email'],
                 ':senha' => $dados['senha'],
+                ':modo' => $dados['modo'],
                 ':permissao' => $dados['permissao'],
                 ':setor' => $setor_id,
                 ':funcao' => $funcao_id,
                 ':endereco' => $endereco_id
             ]);
+
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
             exit;
@@ -74,13 +79,14 @@ class UsuarioController
             'data_contrato' => trim($_POST['usu_data_contrato']),
             'email' => trim($_POST['usu_email']),
             'senha' => trim($_POST['usu_senha']),
-            'status' => trim($_POST['usu_status']),
+            'modo' => trim($_POST['usu_modo']),
+            'permissao' => trim($_POST['usu_permissao']),
 
             //FK´s
-            'setor_id' => trim($_POST['setor']),
+            'setor_id' => trim($_POST['usu_setor']),
             'novo_setor' => trim($_POST['usu_novo_setor'] ?? null),
 
-            'funcao_id' => trim($_POST['funcao']),
+            'funcao_id' => trim($_POST['usu_funcao']),
             'nova_funcao' => trim($_POST['usu_nova_funcao'] ?? null),
 
 
@@ -128,8 +134,8 @@ class UsuarioController
             $erros[] = "Senha incompleta";
         }
 
-        if (empty($dados['status'])) {
-            $erros[] = "Selecione um status";
+        if (empty($dados['modo'])) {
+            $erros[] = "Selecione um modo";
         }
 
         //Tabelas Setor e Função

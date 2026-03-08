@@ -13,7 +13,7 @@
     <header>
         <nav>
             <a href="retorno.php">
-                < Histórico de Usuario</a>
+                < Histórico de Material</a>
         </nav>
     </header>
 

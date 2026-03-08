@@ -31,13 +31,13 @@
             <form action="/pages/home.php" method="post">
                 <label for="input_login">Login</label>
                 <input type="text" class="input-form" placeholder="Digite seu número de login" name="login" id="input_login" autocomplete="username" required>
-                
+
                 <label for="input_email">Email</label>
                 <input type="email" class="input-form" placeholder="example@gmail.com" name="email" id="input_email" required>
 
                 <label for="input_senha">Senha</label>
                 <input type="password" class="input-form" placeholder="Digite a sua senha" id="input_senha" pattern="{4, 8}" autocomplete="current-password"
-                    required >
+                    required>
 
                 <!-- <div class="captchaImg-container">
                     <img src="" alt="Imagem CAPTCHA" id="captchaImage">
@@ -56,7 +56,7 @@
             </form>
         </div>
     </main>
-<!-- 
+    <!-- 
     <script src="../../public/assets/js/index.js"></script> -->
 </body>
 

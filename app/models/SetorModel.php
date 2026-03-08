@@ -10,29 +10,28 @@ class SetorModel
         $this->db = $connection;
     }
 
-    public function insert(string $nome):int
+    public function insert(string $nome): int
     {
         try {
             $stmt = $this->db->prepare("INSERT INTO tb_setor(set_nome) VALUES (:nome)");
             $stmt->execute([':nome' => $nome]);
 
             return $this->db->lastInsertId();
-            
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
-            exit;
+            throw new Exception('Erro ao selecionar os dados dos setores (selectAll). 402');
         }
     }
 
-    public function selectAll():array{
+    public function selectAll(): array
+    {
         try {
             $stmt = $this->db->prepare("SELECT * FROM tb_setor");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
-            exit;
+            throw new Exception('Erro ao selecionar os dados dos setores (selectAll). 402');
         }
     }
 }
