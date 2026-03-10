@@ -41,12 +41,14 @@ class UsuarioController
                 $setor_id = $dados['setor_id'];
             }
 
-            if (!empty($_POST['novo_funcao'])) {
+            if (!empty($_POST['nova_funcao'])) {
                 $funcao_id = $this->funcaoModel->insert($_POST['nova_funcao']);
             } else {
                 $funcao_id = $dados['funcao_id'];
             }
 
+            $this->setorModel->selectAll();
+            
             $this->usuarioModel->insert([
                 ':matricula' => $dados['matricula'],
                 ':cpf' => $dados['cpf'],
@@ -61,13 +63,59 @@ class UsuarioController
                 ':funcao' => $funcao_id,
                 ':endereco' => $endereco_id
             ]);
-
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
             exit;
         }
     }
 
+    public function edit($id)
+    {
+        try {
+            $id = htmlspecialchars($_GET['id']);
+
+            if (!$id) {
+                exit('Id não informado!. 403');
+            }
+
+            $usuario = $this->usuarioModel->selectById($id);
+
+            if (!$usuario) {
+                http_response_code(404);
+                exit('Usuário não encontrado. 403');
+            }
+
+            require_once __DIR__. '/../views/cadastro/cadastroUsuario.php';
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao editar os dados (edit). 403');
+        }
+    }
+
+    public function update($id)
+    {
+        try {
+            $dados = $this->dadosUsuario();
+            $erros = $this->validarDados($dados);
+
+            $id = htmlspecialchars($_GET['id']);
+            $this->usuarioModel->update($dados, $id);
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao atualizar os dados (update). 403');
+        }
+    }
+
+
+    public function delete($id)
+    {
+        $id = htmlspecialchars($_GET['id']);
+
+        $this->usuarioModel->delete($id);
+    }
+
+
+    //AQUISIÇÃO E VALIDAÇÃO DE DADOS DO FORMULÁRIO DE CADASTRO DE USUÁRIO
     public function dadosUsuario(): array
     {
 
@@ -101,6 +149,7 @@ class UsuarioController
 
         return $dados;
     }
+
 
     public function validarDados(array $dados): array
     {
