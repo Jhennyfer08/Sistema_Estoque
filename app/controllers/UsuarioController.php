@@ -47,8 +47,16 @@ class UsuarioController
                 $funcao_id = $dados['funcao_id'];
             }
 
-            $this->setorModel->selectAll();
-            
+            //Autorização do almoxarifado
+            $almoxarifado = $this->setorModel->selectByName('almoxarifado');
+            $almoxarifado_id = $almoxarifado['set_id'];
+
+            if ($setor_id === $almoxarifado_id) {
+                $permissao = 'A';
+            }else {
+                $permissao = 'F';
+            }
+
             $this->usuarioModel->insert([
                 ':matricula' => $dados['matricula'],
                 ':cpf' => $dados['cpf'],
@@ -58,7 +66,7 @@ class UsuarioController
                 ':email' => $dados['email'],
                 ':senha' => $dados['senha'],
                 ':modo' => $dados['modo'],
-                ':permissao' => $dados['permissao'],
+                ':permissao' => $permissao,
                 ':setor' => $setor_id,
                 ':funcao' => $funcao_id,
                 ':endereco' => $endereco_id
