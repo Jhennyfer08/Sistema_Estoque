@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/assets/css/config.css">
-    <link rel="stylesheet" href="../../../public/assets/css/cadastro.css">
+    <link rel="stylesheet" href="../../public/assets/css/config.css">
+    <link rel="stylesheet" href="../../public/assets/css/cadastro.css">
     <title>Nome da empresa - Estoque</title>
 </head>
 
@@ -34,7 +34,7 @@
                     <div class="input-item" id="cpf">
                         <label for="input_cpf">CPF:</label>
                         <input type="number" name="usu_cpf" maxlength="11" id="input_cpf" pattern="\d{11}" placeholder="000.000.000-00"
-                            required>
+                        required>
                         <span class="form-error"></span>
                     </div>
 
@@ -161,7 +161,7 @@
         </div>
     </main>
 
-    <script src="../../../public/assets/js/cadastroUsuario.js"></script>
+    <script src="../../public/assets/js/cadastroUsuario.js"></script>
 </body>
 
 </html>

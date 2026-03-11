@@ -2,7 +2,6 @@
 
 class UsuarioModel
 {
-
     private $db;
 
     public function __construct(PDO $connection)
@@ -14,8 +13,9 @@ class UsuarioModel
     {
 
         $this->db->beginTransaction();
+
         try {
-            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_senha, usu_modo, usu_permissao, usu_setor_id, usu_funcao_id, usu_endereco_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :senha, :modo, :permissao, :setor, :funcao, :endereco)');
+            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_login, usu_senha, usu_status, usu_permissao,, end_id, set_id, fun_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :usu_login :senha, :modo, :permissao, :endereco, :setor, :funcao)');
 
             $stmt->execute([
                 ':matricula' => $dados['matricula'],
@@ -24,6 +24,7 @@ class UsuarioModel
                 ':data_nasc' => $dados['cpf'],
                 ':data_contrato' => $dados['data_contrato'],
                 ':email' => $dados['email'],
+                ':usu_login' => $dados['matricula'],
                 password_hash($dados['senha'], PASSWORD_DEFAULT),
                 ':modo' => $dados['modo'],
                 ':permissao' => $dados['permissao'],

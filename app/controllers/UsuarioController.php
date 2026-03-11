@@ -1,8 +1,15 @@
 <?php
 
+require_once __DIR__ . '/../models/UsuarioModel.php';
+require_once __DIR__ . '/../models/FuncaoModel.php';
+require_once __DIR__ . '/../models/SetorModel.php';
+require_once __DIR__ . '/../models/EnderecoModel.php';
+require_once __DIR__ . '/../models/LogModel.php';
+require_once __DIR__ . '/../models/MovimentacaoModel.php';
+
 class UsuarioController
 {
-    private  $usuarioModel;
+    private $usuarioModel;
     private $funcaoModel;
     private  $setorModel;
     private  $enderecoModel;
@@ -30,6 +37,10 @@ class UsuarioController
     public function store()
     {
         try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                exit;
+            }
+
             $dados = $this->dadosUsuario();
             $erros = $this->validarDados($dados);
 
@@ -53,7 +64,7 @@ class UsuarioController
 
             if ($setor_id === $almoxarifado_id) {
                 $permissao = 'A';
-            }else {
+            } else {
                 $permissao = 'F';
             }
 
@@ -67,9 +78,9 @@ class UsuarioController
                 ':senha' => $dados['senha'],
                 ':modo' => $dados['modo'],
                 ':permissao' => $permissao,
+                ':endereco' => $endereco_id,
                 ':setor' => $setor_id,
-                ':funcao' => $funcao_id,
-                ':endereco' => $endereco_id
+                ':funcao' => $funcao_id
             ]);
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
@@ -93,7 +104,7 @@ class UsuarioController
                 exit('Usuário não encontrado. 403');
             }
 
-            require_once __DIR__. '/../views/cadastro/cadastroUsuario.php';
+            require_once __DIR__ . '/../views/cadastro/cadastroUsuario.php';
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
             throw new Exception('Erro ao editar os dados (edit). 403');
