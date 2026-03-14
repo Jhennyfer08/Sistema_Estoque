@@ -26,9 +26,8 @@ class Database
 
     public function getConnection(): PDO
     {
-        echo ('<script>console.log("Conexão com o banco efetuada com sucesso!")</script>');
         return $this->connection;
     }
 }
 
-$db = new Database();
+// $db = new Database();

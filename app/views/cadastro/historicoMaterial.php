@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/assets/css/config.css">
-    <link rel="stylesheet" href="../../../public/assets/css/cssRetorno/historicoRetorno.css">
+    <link rel="stylesheet" href="../../public/assets/css/config.css">
+    <link rel="stylesheet" href="../../public/assets/css/cssRetorno/historicoRetorno.css">
     <title>Nome da empresa - Estoque</title>
 </head>
 
