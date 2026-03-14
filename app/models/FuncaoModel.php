@@ -35,4 +35,16 @@ class FuncaoModel
             exit;
         }
     }
+
+    public function selectById($id): array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM tb_funcao WHERE fun_id = :id");
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao selecionar os dados dos funcaes (selectAll). 402');
+        }
+    }
 }

@@ -45,11 +45,18 @@ class UsuarioModel
     public function selectAll(): array
     {
         try {
-            $stmt = $this->db->prepare("SELECT * FROM tb_usuario");
+            $stmt = $this->db->prepare("SELECT 
+            u.*, 
+            s.set_nome, 
+            f.fun_nome
+            FROM tb_usuario u
+            INNER JOIN tb_setor s ON u.set_id = s.set_id
+            INNER JOIN tb_funcao f ON u.fun_id = f.fun_id
+            ");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
-            error_log($e->getMessage(), $e->getCode());
+            error_log($e->getMessage());
             throw new Exception('Erro ao buscar os dados (selectAll). 402');
         }
     }

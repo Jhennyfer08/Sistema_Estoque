@@ -53,7 +53,9 @@ class UsuarioController
             }
 
             if (!empty($_POST['nova_funcao'])) {
-                $funcao_id = $this->funcaoModel->insert($_POST['nova_funcao']);
+                if (!$this->setorModel->selectByName($_POST['nova_funcao']) === $_POST['nova_funcao']) {
+                    $funcao_id = $this->funcaoModel->insert($_POST['nova_funcao']);
+                }
             } else {
                 $funcao_id = $dados['funcao_id'];
             }
@@ -83,8 +85,19 @@ class UsuarioController
                 ':funcao' => $funcao_id
             ]);
         } catch (\Exception $e) {
-            error_log($e->getMessage(), $e->getCode());
+            error_log($e->getMessage());
             exit;
+        }
+    }
+
+    public function list()
+    {
+        try {
+            $usuarios = $this->usuarioModel->selectAll();
+            require_once __DIR__.'/../views/cadastro/historicoUsuario.php';
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            throw new Exception('Erro ao listar os dados (list). 403');
         }
     }
 
@@ -103,10 +116,8 @@ class UsuarioController
                 http_response_code(404);
                 exit('Usuário não encontrado. 403');
             }
-
-            require_once __DIR__ . '/../views/cadastro/cadastroUsuario.php';
         } catch (\Exception $e) {
-            error_log($e->getMessage(), $e->getCode());
+            error_log($e->getMessage());
             throw new Exception('Erro ao editar os dados (edit). 403');
         }
     }
@@ -120,7 +131,7 @@ class UsuarioController
             $id = htmlspecialchars($_GET['id']);
             $this->usuarioModel->update($dados, $id);
         } catch (\Exception $e) {
-            error_log($e->getMessage(), $e->getCode());
+            error_log($e->getMessage());
             throw new Exception('Erro ao atualizar os dados (update). 403');
         }
     }
@@ -168,7 +179,6 @@ class UsuarioController
 
         return $dados;
     }
-
 
     public function validarDados(array $dados): array
     {

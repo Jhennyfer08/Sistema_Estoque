@@ -10,7 +10,7 @@ $db = new Database();
 $connection = $db->getConnection();
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = str_replace( '/estoque/public/', '', $uri);
+$uri = str_replace('/estoque/public/', '', $uri);
 $uri = trim($uri, '/');
 
 $partes = explode('/', $uri);
@@ -31,6 +31,18 @@ if (count($partes) > 2) {
 ]*/
 
 $rotas = [
+    'login' => [
+        'controller' => UsuarioController::class,
+        'metodo' => 'login',
+        'permissao' => ['A', 'F']
+    ],
+
+    'usuario/listar' => [
+        'controller' => UsuarioController::class,
+        'metodo' => 'list',
+        'permissao' => ['A']
+    ],
+
     'cadastro/usuario' => [
         'controller' => UsuarioController::class,
         'metodo' => 'create',
@@ -42,6 +54,7 @@ $rotas = [
         'metodo' => 'store',
         'permissao' => ['A']
     ],
+
 ];
 
 if (!isset($rotas[$rotaBase])) {

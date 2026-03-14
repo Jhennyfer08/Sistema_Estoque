@@ -35,6 +35,17 @@ class SetorModel
         }
     }
 
+    public function selectById($id): array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM tb_setor WHERE set_id = :id");
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao selecionar os dados dos setores (selectAll). 402');
+        }
+    }
     public function selectByName($nome): array
     {
         try {
