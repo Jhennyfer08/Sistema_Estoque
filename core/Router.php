@@ -74,6 +74,13 @@ if (empty($parametro)) {
     $controller->$metodo();
 }
 
+//acho que o certo seria assim, porque se o parametro está vazio não tem como acontecer $controller->$metodo($parametro);
+
+// if ($parametro) {
+//     $controller->$metodo($parametro);
+// } else {
+//     $controller->$metodo();
+// }
 
 
 
