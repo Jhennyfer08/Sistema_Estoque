@@ -38,13 +38,24 @@ CREATE TABLE `tb_endereco` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_endereco`
+-- Table structure for table `tb_estoque`
 --
 
-LOCK TABLES `tb_endereco` WRITE;
-/*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_endereco` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `tb_estoque`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tb_estoque` (
+  `est_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `est_quantidade` decimal(8,2) DEFAULT NULL,
+  `usu_id` int unsigned NOT NULL,
+  `mat_id` int unsigned NOT NULL,
+  PRIMARY KEY (`est_id`),
+  KEY `usu_id` (`usu_id`),
+  KEY `mat_id` (`mat_id`),
+  CONSTRAINT `tb_estoque_ibfk_1` FOREIGN KEY (`usu_id`) REFERENCES `tb_usuario` (`usu_id`),
+  CONSTRAINT `tb_estoque_ibfk_2` FOREIGN KEY (`mat_id`) REFERENCES `tb_material` (`mat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `tb_fornecedor`
@@ -66,15 +77,6 @@ CREATE TABLE `tb_fornecedor` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_fornecedor`
---
-
-LOCK TABLES `tb_fornecedor` WRITE;
-/*!40000 ALTER TABLE `tb_fornecedor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_fornecedor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_funcao`
 --
 
@@ -87,15 +89,6 @@ CREATE TABLE `tb_funcao` (
   PRIMARY KEY (`fun_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_funcao`
---
-
-LOCK TABLES `tb_funcao` WRITE;
-/*!40000 ALTER TABLE `tb_funcao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_funcao` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_log`
@@ -118,15 +111,6 @@ CREATE TABLE `tb_log` (
   CONSTRAINT `tb_log_ibfk_1` FOREIGN KEY (`usu_id`) REFERENCES `tb_usuario` (`usu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_log`
---
-
-LOCK TABLES `tb_log` WRITE;
-/*!40000 ALTER TABLE `tb_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_material`
@@ -153,15 +137,6 @@ CREATE TABLE `tb_material` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_material`
---
-
-LOCK TABLES `tb_material` WRITE;
-/*!40000 ALTER TABLE `tb_material` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_material` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_movimentacao`
 --
 
@@ -176,6 +151,8 @@ CREATE TABLE `tb_movimentacao` (
   `mov_observacao` varchar(255) DEFAULT NULL,
   `usu_id` int unsigned NOT NULL,
   `mat_id` int unsigned NOT NULL,
+  `mov_modo` enum('pendente','aceito','recusado') DEFAULT 'pendente',
+  `mov_usuario_destino` int DEFAULT NULL,
   PRIMARY KEY (`mov_id`),
   KEY `usu_id` (`usu_id`),
   KEY `mat_id` (`mat_id`),
@@ -183,15 +160,6 @@ CREATE TABLE `tb_movimentacao` (
   CONSTRAINT `tb_movimentacao_ibfk_2` FOREIGN KEY (`mat_id`) REFERENCES `tb_material` (`mat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_movimentacao`
---
-
-LOCK TABLES `tb_movimentacao` WRITE;
-/*!40000 ALTER TABLE `tb_movimentacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_movimentacao` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_setor`
@@ -206,15 +174,6 @@ CREATE TABLE `tb_setor` (
   PRIMARY KEY (`set_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_setor`
---
-
-LOCK TABLES `tb_setor` WRITE;
-/*!40000 ALTER TABLE `tb_setor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_setor` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_unidade_medida`
@@ -232,15 +191,6 @@ CREATE TABLE `tb_unidade_medida` (
   UNIQUE KEY `uni_sigla` (`uni_sigla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_unidade_medida`
---
-
-LOCK TABLES `tb_unidade_medida` WRITE;
-/*!40000 ALTER TABLE `tb_unidade_medida` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_unidade_medida` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_usuario`
@@ -279,29 +229,6 @@ CREATE TABLE `tb_usuario` (
   CONSTRAINT `tb_usuario_ibfk_3` FOREIGN KEY (`fun_id`) REFERENCES `tb_funcao` (`fun_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-create table if not exists tb_estoque (
-	est_id int unsigned not null auto_increment,
-    est_quantidade decimal(8,2),
-    usu_id int unsigned not null,
-    mat_id int unsigned not null,
-    
-    primary key (est_id),
-    foreign key (usu_id) references tb_usuario(usu_id),
-    foreign key (mat_id) references tb_material(mat_id)
-);
-
-alter table tb_movimentacao
-add mov_status enum('pendente', 'aceito', 'recusado') default 'pendente',
-add mov_usuario_destino int;
---
--- Dumping data for table `tb_usuario`
---
-
-LOCK TABLES `tb_usuario` WRITE;
-/*!40000 ALTER TABLE `tb_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -312,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-15 12:05:57
+-- Dump completed on 2026-03-21 15:36:39
