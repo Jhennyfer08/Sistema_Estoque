@@ -280,6 +280,20 @@ CREATE TABLE `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+create table if not exists tb_estoque (
+	est_id int unsigned not null auto_increment,
+    est_quantidade decimal(8,2),
+    usu_id int unsigned not null,
+    mat_id int unsigned not null,
+    
+    primary key (est_id),
+    foreign key (usu_id) references tb_usuario(usu_id),
+    foreign key (mat_id) references tb_material(mat_id)
+);
+
+alter table tb_movimentacao
+add mov_status enum('pendente', 'aceito', 'recusado') default 'pendente',
+add mov_usuario_destino int;
 --
 -- Dumping data for table `tb_usuario`
 --
