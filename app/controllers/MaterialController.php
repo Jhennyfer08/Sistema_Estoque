@@ -2,11 +2,11 @@
 
 class MaterialController
 {
-    protected PDO $db;
+    protected $materialModel;
 
     public function __construct(PDO $connection)
     {
-        $this->db = $connection;
+        $this->materialModel = $connection;
     }
 
     public function dadosMaterial(): array

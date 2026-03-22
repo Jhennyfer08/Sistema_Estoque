@@ -9,15 +9,16 @@ class MovimentacaoModel
         $this->db = $connection;
     }
 
-    public function registrarTransferencia($dados)
+    public function registrarMovimentacao($tipo, $dados): int
     {
         try {
             $this->db->beginTransaction();
 
             $stmt = $this->db->prepare("INSERT INTO tb_movimentacao(mov_tipo, mov_quantidade, mov_data, mov_status, tb_material_mat_id, tb_usuario_usu_id, mov_usuario_destino)
-            VALUES ('transferencia', :qtd, NOW(), 'pendente', :material, :remetente, :destinatario)");
+            VALUES (:tipo, :qtd, NOW(), 'pendente', :material, :remetente, :destinatario)");
 
             $stmt->execute([
+                ':tipo' => $tipo,
                 ':qtd' => $dados['quantidade'],
                 ':material' => $dados['material_id'],
                 ':remetente' => $dados['remetente_id'],
@@ -29,7 +30,30 @@ class MovimentacaoModel
         } catch (\Exception $e) {
             $this->db->rollBack();
             error_log($e->getMessage(), $e->getCode());
-            throw new Exception("Tranferência não realizada (transferencia). 402");
+            throw new Exception("registro da movimentação não realizada (registrarMovimentacao). 402");
+        }
+    }
+
+    public function listarMovimentacao($usu_id, $tipo): array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT m.*, mat.mat_nome, u.usu_nome AS remetente
+            FROM tb_movimentacao m 
+            JOIN tb_material mat ON mat.mat_id = m.tb_material_mat_id
+            JOIN tb_usuario u ON u.usu_id = m.tb_usuario_usu_id
+            WHERE m.mov_usuario_destino = :usu_id
+            AND m.mov_tipo = :mov_tipo");
+
+            $stmt->execute([
+                ':usu_id' => $usu_id,
+                ':mov_tipo' => $tipo
+            ]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception("listagem da movimentação não realizada (registrarTransferencia). 402");
         }
     }
 
@@ -44,11 +68,9 @@ class MovimentacaoModel
             ]);
 
             return true;
-            
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
-            throw new Exception("Transferência aceita interrompida, (saida). 402");
-            return false;
+            throw new Exception("aceitar transferência interrompida, (aceitarTransferencia). 402");
         }
     }
 
@@ -63,7 +85,7 @@ class MovimentacaoModel
             ]);
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
-            throw new Exception("Transferência recusada interrompida, (saida). 402");
+            throw new Exception("recusar transferência interrompida, (recusarTransferencia). 402");
         }
     }
 
@@ -72,9 +94,15 @@ class MovimentacaoModel
         try {
             $this->db->beginTransaction();
 
-            $stmt = $this->db->prepare("SELECT * FROM tb_movimentacao WHERE mov_usuario_destino = :usuario AND mov_modo = :modo");
+            $stmt = $this->db->prepare("SELECT m.*, mat.mat_nome, u.usu_nome AS remetente
+            FROM tb_movimentacao m 
+            JOIN tb_material mat ON mat.mat_id = m.tb_material_mat_id
+            JOIN tb_usuario u ON u.usu_id = m.tb_usuario_usu_id
+            WHERE m.mov_usuario_destino = :destinatario
+            AND m.mov_modo = :modo");
+
             $stmt->execute([
-                ':usuario' => $id,
+                ':destinatario' => $id,
                 ':modo' => 'pendente'
             ]);
 
@@ -83,7 +111,7 @@ class MovimentacaoModel
         } catch (\Exception $e) {
             $this->db->rollBack();
             error_log($e->getMessage(), $e->getCode());
-            throw new Exception("Não foi possível acessar a caixa de entrada do usuário, (caixaEntrada). 402");
+            throw new Exception("Não foi possível acessar a caixa de entrada do usuário, (buscarPendentes). 402");
         }
     }
 }

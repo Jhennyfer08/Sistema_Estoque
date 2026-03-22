@@ -4,7 +4,11 @@ require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/Auth.php';
 
 //Controllers
+require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/UsuarioController.php';
+require_once __DIR__ . '/../app/controllers/MaterialController.php';
+require_once __DIR__ . '/../app/controllers/MovimentacaoController.php';
+require_once __DIR__ . '/../app/controllers/HistoricoController.php';
 
 $db = new Database();
 $connection = $db->getConnection();
@@ -37,12 +41,14 @@ $rotas = [
         'permissao' => ['A', 'F']
     ],
 
+    //LISTAGEM DE USUÁRIOS
     'usuario/listar' => [
         'controller' => UsuarioController::class,
         'metodo' => 'list',
         'permissao' => ['A']
     ],
 
+    //CADASTRO USUÁRIO
     'cadastro/usuario' => [
         'controller' => UsuarioController::class,
         'metodo' => 'create',
@@ -53,6 +59,37 @@ $rotas = [
         'controller' => UsuarioController::class,
         'metodo' => 'store',
         'permissao' => ['A']
+    ],
+
+    //TRANFERÊNCIA DE MATERIAIS
+    'caixa-de-entrada' => [
+        'controller' => MovimentacaoController::class,
+        'metodo' => 'caixaEntrada',
+        'permissao' => ['A', 'F']
+    ],
+
+    'transferencia' => [
+        'controller' => MovimentacaoController::class,
+        'metodo' => 'transferencia',
+        'permissao' => ['A', 'F']
+    ],
+
+    'transferencia/transferir' => [
+        'controller' => MovimentacaoController::class,
+        'metodo' => 'realizarTransferencia',
+        'permissao' => ['A', 'F']
+    ],
+
+    'transferencia/aceitar' => [
+        'controller' => MovimentacaoController::class,
+        'metodo' => 'aceitarTransferencia',
+        'permissao' => ['A', 'F']
+    ],
+
+    'transferencia/recusar' => [
+        'controller' => MovimentacaoController::class,
+        'metodo' => 'recusarTransferencia',
+        'permissao' => ['A', 'F']
     ],
 
 ];
@@ -68,23 +105,11 @@ $metodo = $rotas[$rotaBase]['metodo'];
 // (new Controller-> Método)
 $controller = new $controllerNome($connection);
 
-if (empty($parametro)) {
+if ($parametro) {
     $controller->$metodo($parametro);
 } else {
     $controller->$metodo();
 }
-
-//acho que o certo seria assim, porque se o parametro está vazio não tem como acontecer $controller->$metodo($parametro);
-
-// if ($parametro) {
-//     $controller->$metodo($parametro);
-// } else {
-//     $controller->$metodo();
-// }
-
-
-
-
 
 
 

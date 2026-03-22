@@ -17,60 +17,36 @@
         </nav>
     </header>
 
-
     <main>
         <div class="container">
 
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Descrição</th>
+                        <th>Código</th>
+                        <th>Nome</th>
                         <th>Quantidade</th>
+                        <th>Remetente</th>
                         <th>Status</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>876543</td>
-                        <td>P1</td>
-                        <td><!-- <input type="number" name="quantidade" id="qtd">--></td> 
-                        <td>
-                            <img src="../../../public/assets/img/icons/accept.png" alt="">
-                            <img src="../../../public/assets/img/icons/delete.png" alt="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>456782</td>
-                        <td>P2</td>
-                        <td>2M</td>
-                        <td>
-                            <img src="../../../public/assets/img/icons/accept.png" alt="">
-                            <img src="../../../public/assets/img/icons/delete.png" alt="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>345679</td>
-                        <td>P3</td>
-                        <td>68U</td>
-                        <td>
-                            <img src="../../../public/assets/img/icons/accept.png" alt="">
-                            <img src="../../../public/assets/img/icons/delete.png" alt="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>987627</td>
-                        <td>P4</td>
-                        <td>5M</td>
-                        <td>
-                            <img src="../../../public/assets/img/icons/accept.png" alt="">
-                            <img src="../../../public/assets/img/icons/delete.png" alt="">
-                        </td>
-                    </tr>
+                    <?php foreach ($caixa_materiais as $material): ?>
+                        <tr>
+                            <td><?= $material['mat_codigo'] ?></td>
+                            <td><?= $material['mat_nome'] ?></td>
+                            <td><?= $material['mov_quantidade'] ?></td>
+                            <td><?= $material['remetente'] ?></td>
+                            <td>
+                                <a href="/estoque/public/material/aceitar"><img src="../../../public/assets/img/icons/accept.png" alt="botão de aceitar material"></a>
+                                <a href="/estoque/public/material/recusar"><img src="../../../public/assets/img/icons/delete.png" alt="botão de recusar material"></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
-
             </table>
+
         </div>
     </main>
 </body>

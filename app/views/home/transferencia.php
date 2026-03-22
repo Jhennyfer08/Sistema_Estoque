@@ -30,38 +30,22 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Descrição</th>
+                            <th>Remetente</th>
+                            <th>Material</th>
                             <th>Quantidade</th>
-                            <th>Status</th>
+                            <th>Destinatário</th>
                         </tr>
                     </thead>
 
-                    <tbody bo>
-                        <tr>
-                            <td>876543</td>
-                            <td>P1</td>
-                            <td>34U</td>
-                            <td>.</td>
-                        </tr>
-                        <tr>
-                            <td>456782</td>
-                            <td>P2</td>
-                            <td>2M</td>
-                            <td>.</td>
-                        </tr>
-                        <tr>
-                            <td>345679</td>
-                            <td>P3</td>
-                            <td>68U</td>
-                            <td>.</td>
-                        </tr>
-                        <tr>
-                            <td>987627</td>
-                            <td>P4</td>
-                            <td>5M</td>
-                            <td>.</td>
-                        </tr>
+                    <tbody>
+                        <?php foreach ($transferencias as $transferencia): ?>
+                            <tr>
+                                <td><?= $transferencia['remetente'] ?></td>
+                                <td><?= $transferencia['mat_nome'] ?></td>
+                                <td><?= $transferencia['mov_quantidade'] ?></td>
+                                <td><?= $transferencia['mov_usuario_destino'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
 
                 </table>
@@ -87,30 +71,15 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>876543</td>
-                            <td>P1</td>
-                            <td>34U</td>
-                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>456782</td>
-                            <td>P2</td>
-                            <td>2M</td>
-                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>345679</td>
-                            <td>P3</td>
-                            <td>68U</td>
-                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>987627</td>
-                            <td>P4</td>
-                            <td>5M</td>
-                            <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
-                        </tr>
+                        <?php foreach ($transferencias as $transferencia): ?>
+                            <tr>
+                                <td><?= $transferencia['remetente'] ?></td>
+                                <td><?= $transferencia['mat_nome'] ?></td>
+                                <td><?= $transferencia['mov_quantidade'] ?></td>
+                                <td><?= $transferencia['mov_usuario_destino'] ?></td>
+                                <td><input type="checkbox" name="selecionarCheckbox" class="checkbox"></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../models/UsuarioModel.php';
 require_once __DIR__ . '/../models/FuncaoModel.php';
 require_once __DIR__ . '/../models/SetorModel.php';
@@ -167,6 +166,8 @@ class UsuarioController
             'funcao_id' => trim($_POST['usu_funcao']),
             'nova_funcao' => trim($_POST['usu_nova_funcao'] ?? null),
 
+            'endereco',
+
 
             //Endereço
             'cep' => trim($_POST['end_cep']),
@@ -208,7 +209,7 @@ class UsuarioController
             $erros[] = "Email inválido";
         }
 
-        if (!preg_match('/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})$/', $dados['senha'])) { //Colocar o obrigatório de 8 caracteres, uma letra maiúscula e uma número
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $dados['senha'])) { //Colocar o obrigatório de 8 caracteres, uma letra maiúscula e uma número
             $erros[] = "Senha incompleta";
         }
 
@@ -233,23 +234,23 @@ class UsuarioController
         }
 
         if (empty($dados['rua'])) {
-            $erros[] = "nome da Rua inválida";
+            $erros[] = "Insira um nome da Rua";
         }
 
         if (!preg_match('/^\d+$/', $dados['numero'])) {
-            $erros[] = "nome da Rua inválida";
+            $erros[] = "Insira um número";
         }
 
         if (empty($dados['bairro'])) {
-            $erros[] = "Bairro inválido";
+            $erros[] = "Insira um bairro";
         }
 
         if (empty($dados['cidade'])) {
-            $erros[] = "nome de cidade inválida";
+            $erros[] = "Insira um nome de cidade";
         }
 
         if (empty($dados['estado'])) {
-            $erros[] = "selecione um estado";
+            $erros[] = "Selecione um estado";
         }
 
         return $erros;
