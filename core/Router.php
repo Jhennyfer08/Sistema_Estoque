@@ -15,18 +15,17 @@ $connection = $db->getConnection();
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = str_replace('/estoque/public/', '', $uri);
-$uri = trim($uri, '/');
+$uri = rtrim($uri, '/');
 
 $partes = explode('/', $uri);
 
 if (count($partes) > 2) {
-    $parametro = $partes[2];
-    $rotaBase = $partes[0] . '/' . $partes[1];
+    $rotaBase = $partes[0] . '/' . $partes[1] . (isset($partes[2]) ? '/' . $partes[2] : null);
+    $parametro = $partes[3] ?? null;
 } else {
     $parametro = null;
     $rotaBase = $uri;
 }
-
 
 /*Rota = [
     controller => Controller::class,
@@ -35,9 +34,24 @@ if (count($partes) > 2) {
 ]*/
 
 $rotas = [
+
+    //LOGIN
+
     'login' => [
-        'controller' => UsuarioController::class,
+        'controller' => AuthController::class,
+        'metodo' => 'index',
+        'permissao' => ['A', 'F']
+    ],
+
+    'auth/login' => [
+        'controller' => AuthController::class,
         'metodo' => 'login',
+        'permissao' => ['A', 'F']
+    ],
+
+    'home' => [
+        'controller' => AuthController::class,
+        'metodo' => 'home',
         'permissao' => ['A', 'F']
     ],
 
@@ -45,7 +59,7 @@ $rotas = [
     'usuario/listar' => [
         'controller' => UsuarioController::class,
         'metodo' => 'list',
-        'permissao' => ['A']
+        'permissao' => ['A', 'F']
     ],
 
     //CADASTRO USUÁRIO
@@ -92,12 +106,44 @@ $rotas = [
         'permissao' => ['A', 'F']
     ],
 
+    'acesso-negado' => [
+        'controller' => AuthController::class,
+        'metodo' => 'acessoNegado',
+        'permissao' => ['A', 'F']
+    ],
+
+    'pagina-nao-encontrada' => [
+        'controller' => AuthController::class,
+        'metodo' => 'paginaNaoEncontrada',
+        'permissao' => ['A', 'F']
+    ]
+
 ];
 
+
 if (!isset($rotas[$rotaBase])) {
+    header('Location: estoque/public/pagina-nao-encontrada');
     http_response_code(404);
-    exit('Página não encontrada.');
 }
+
+// $auth = new Auth();
+
+// $rotasLogin = ['auth/login', 'login'];
+
+// if (!in_array($rotaBase, $rotasLogin)) {
+//     if (!$auth->check()) {
+//         header('Location: /estoque/public/login');
+//         exit;
+//     }
+// }
+
+// $usuario = $auth->user();
+// $funcionarioPermitido = $rotas[$rotaBase]['permissao'];
+
+// if (!in_array($usuario['usu_permissao'], $funcionarioPermitido)) {
+//     header('Location: /estoque/public/acesso-negado');
+//     exit;
+// }
 
 $controllerNome = $rotas[$rotaBase]['controller'];
 $metodo = $rotas[$rotaBase]['metodo'];
@@ -112,20 +158,4 @@ if ($parametro) {
 }
 
 
-
-
-
-//$auth = new Auth();
-
-// if (!$auth->check()) {
-//     header('Location: /estoque/public/login');
-//     exit;
-// }
-
-// $usuario = $auth->user();
-// $funcionarioPermitido = $rotas[$rotaBase]['permissao'];
-
-// if (!in_array($usuario['usu_permissao'], $funcionarioPermitido)) {
-//     header('Location: /estoque/public/home');
-//     exit;
-// }
+//CORRIGIR AS PERMISSÕES DAS ROTAS

@@ -15,22 +15,22 @@ class UsuarioModel
         $this->db->beginTransaction();
 
         try {
-            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_login, usu_senha, usu_status, usu_permissao,, end_id, set_id, fun_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :usu_login :senha, :modo, :permissao, :endereco, :setor, :funcao)');
+            $stmt = $this->db->prepare('INSERT INTO tb_usuario (usu_codigo, usu_cpf, usu_nome, usu_data_nasc, usu_data_cont, usu_email, usu_login, usu_senha, usu_modo, usu_data_cadastro, usu_permissao, end_id, set_id, fun_id) VALUES (:matricula, :cpf, :nome, :data_nasc, :data_contrato, :email, :usu_login, :senha, :modo, NOW(), :permissao, :endereco, :setor, :funcao)');
 
             $stmt->execute([
                 ':matricula' => $dados['matricula'],
                 ':cpf' => $dados['cpf'],
                 ':nome' => $dados['nome'],
-                ':data_nasc' => $dados['cpf'],
+                ':data_nasc' => $dados['data_nasc'],
                 ':data_contrato' => $dados['data_contrato'],
                 ':email' => $dados['email'],
                 ':usu_login' => $dados['matricula'],
-                password_hash($dados['senha'], PASSWORD_DEFAULT),
+                ':senha' => password_hash($dados['senha'], PASSWORD_DEFAULT),
                 ':modo' => $dados['modo'],
                 ':permissao' => $dados['permissao'],
+                ':endereco' => $dados['endereco_id'],
                 ':setor' => $dados['setor_id'],
-                ':funcao' => $dados['funcao_id'],
-                ':endereco' => $dados['endereco_id']
+                ':funcao' => $dados['funcao_id']
             ]);
 
             $this->db->commit();
@@ -78,7 +78,7 @@ class UsuarioModel
         $this->db->beginTransaction();
 
         try {
-            $stmt = $this->db->prepare("UPDATE tb_ usuario SET 
+            $stmt = $this->db->prepare("UPDATE tb_usuario SET 
          usu_codigo = :matricula,
          usu_cpf = :cpf,
          usu_nome = :nome,
@@ -90,7 +90,7 @@ class UsuarioModel
          usu_permissao = :permissao,
          usu_setor = :setor,
          usu_funcao = :funcao,
-         usu_endereco = :endereco_id,
+         usu_endereco = :endereco_id
          WHERE usu_id = :id
         ");
 
@@ -124,7 +124,7 @@ class UsuarioModel
         $this->db->beginTransaction();
 
         try {
-            $stmt = $this->db->prepare("DELETE * FROM tb_usuario WHERE usu_id = :id");
+            $stmt = $this->db->prepare("DELETE FROM tb_usuario WHERE usu_id = :id");
             $stmt->execute([':id' => $id]);
             $this->db->commit();
             return true;
@@ -133,6 +133,18 @@ class UsuarioModel
             error_log($e->getMessage(), $e->getCode());
             throw new Exception('Erro ao deletar os dados (delete). 402');
         }
+    }
+
+    public function login($login, $email){
+        $stmt = $this->db->prepare("SELECT * FROM tb_usuario 
+        WHERE usu_codigo = :usu_login AND usu_email = :email AND usu_modo = :modo
+        LIMIT 1");
+
+        $stmt->execute([':usu_login' => $login,
+        ':email' => $email, 
+        ':modo' => 'ativo']);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 

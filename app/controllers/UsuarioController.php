@@ -41,59 +41,79 @@ class UsuarioController
             }
 
             $dados = $this->dadosUsuario();
-            $erros = $this->validarDados($dados);
 
-            $endereco_id = $this->enderecoModel->insert($_POST);
+            //FK´s | ENDEREÇO | SETOR | FUNÇÃO
+            $endereco_id = $this->enderecoModel->insert($dados);
 
-            if (!empty($_POST['novo_setor'])) {
-                $setor_id = $this->setorModel->insert($_POST['novo_setor']);
+            $setor_id = null;
+
+            if (!empty($dados['novo_setor'])) {
+                $setorExistente = $this->setorModel->selectByName($dados['novo_setor']);
+
+                if ($setorExistente) {
+                    $setor_id = $setorExistente['set_id'];
+                } else {
+                    $setor_id = $this->setorModel->insert($dados['novo_setor']);
+                }
             } else {
                 $setor_id = $dados['setor_id'];
             }
 
-            if (!empty($_POST['nova_funcao'])) {
-                if (!$this->setorModel->selectByName($_POST['nova_funcao']) === $_POST['nova_funcao']) {
-                    $funcao_id = $this->funcaoModel->insert($_POST['nova_funcao']);
+            $funcao_id = null;
+
+            if (!empty($dados['nova_funcao'])) {
+                $funcaoExistente = $this->funcaoModel->selectByName($dados['nova_funcao']);
+
+                if ($funcaoExistente) {
+                    $funcao_id = $funcaoExistente['fun_id'];
+                } else {
+                    $funcao_id = $this->funcaoModel->insert($dados['nova_funcao']);
                 }
             } else {
                 $funcao_id = $dados['funcao_id'];
             }
 
-            //Autorização do almoxarifado
+            //Autorização do almoxarifado || Somente até o login funcionar
             $almoxarifado = $this->setorModel->selectByName('almoxarifado');
-            $almoxarifado_id = $almoxarifado['set_id'];
 
-            if ($setor_id === $almoxarifado_id) {
+            $permissao = 'F';
+
+            if ($almoxarifado && $setor_id == $almoxarifado['set_id']) {
                 $permissao = 'A';
             } else {
                 $permissao = 'F';
             }
 
+            //C LOGIN FUNCIONANDO
+            // $permissao = $_SESSION['usuario_permissao'];
+
             $this->usuarioModel->insert([
-                ':matricula' => $dados['matricula'],
-                ':cpf' => $dados['cpf'],
-                ':nome' => $dados['nome'],
-                ':data_nasc' => $dados['_nasc'],
-                ':data_contrato' => $dados['data_contrato'],
-                ':email' => $dados['email'],
-                ':senha' => $dados['senha'],
-                ':modo' => $dados['modo'],
-                ':permissao' => $permissao,
-                ':endereco' => $endereco_id,
-                ':setor' => $setor_id,
-                ':funcao' => $funcao_id
+                'matricula' => $dados['matricula'],
+                'cpf' => $dados['cpf'],
+                'nome' => $dados['nome'],
+                'data_nasc' => $dados['data_nasc'],
+                'data_contrato' => $dados['data_contrato'],
+                'email' => $dados['email'],
+                'senha' => $dados['senha'],
+                'modo' => $dados['modo'],
+                'permissao' => $permissao,
+                'endereco_id' => $endereco_id,
+                'setor_id' => $setor_id,
+                'funcao_id' => $funcao_id
             ]);
+
+            header('Location: /estoque/public/usuario/listar');
         } catch (\Exception $e) {
             error_log($e->getMessage());
             exit;
         }
     }
-
+    
     public function list()
     {
         try {
             $usuarios = $this->usuarioModel->selectAll();
-            require_once __DIR__.'/../views/cadastro/historicoUsuario.php';
+            require_once __DIR__ . '/../views/cadastro/historicoUsuario.php';
         } catch (\Exception $e) {
             error_log($e->getMessage());
             throw new Exception('Erro ao listar os dados (list). 403');
@@ -115,6 +135,8 @@ class UsuarioController
                 http_response_code(404);
                 exit('Usuário não encontrado. 403');
             }
+
+            require_once __DIR__ . '';
         } catch (\Exception $e) {
             error_log($e->getMessage());
             throw new Exception('Erro ao editar os dados (edit). 403');
@@ -157,7 +179,6 @@ class UsuarioController
             'email' => trim($_POST['usu_email']),
             'senha' => trim($_POST['usu_senha']),
             'modo' => trim($_POST['usu_modo']),
-            'permissao' => trim($_POST['usu_permissao']),
 
             //FK´s
             'setor_id' => trim($_POST['usu_setor']),
@@ -165,9 +186,6 @@ class UsuarioController
 
             'funcao_id' => trim($_POST['usu_funcao']),
             'nova_funcao' => trim($_POST['usu_nova_funcao'] ?? null),
-
-            'endereco',
-
 
             //Endereço
             'cep' => trim($_POST['end_cep']),
@@ -209,21 +227,21 @@ class UsuarioController
             $erros[] = "Email inválido";
         }
 
-        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $dados['senha'])) { //Colocar o obrigatório de 8 caracteres, uma letra maiúscula e uma número
-            $erros[] = "Senha incompleta";
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $dados['senha'])) { //Colocar o obrigatório de 8 caracteres, uma letra maiúscula e um número
+            $erros[] = "Senha inválida";
         }
 
         if (empty($dados['modo'])) {
-            $erros[] = "Selecione um modo";
+            $erros[] = "Selecione um status";
         }
 
         //Tabelas Setor e Função
 
-        if (empty($dados['setor'])) {
+        if (empty($dados['setor_id'])) {
             $erros[] = "Selecione pelo menos um setor";
         }
 
-        if (empty($dados['funcao'])) {
+        if (empty($dados['funcao_id'])) {
             $erros[] = "Selecione pelo menos uma funcao";
         }
 

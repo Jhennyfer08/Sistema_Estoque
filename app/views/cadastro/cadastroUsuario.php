@@ -81,12 +81,6 @@
                             <?php foreach ($setores as $setor): ?>
                                 <option value="<?= $setor['set_id'] ?>"> <?= $setor['set_nome'] ?> </option>
                             <?php endforeach; ?>
-                            <!-- <option value="Tecnico">Técnico</option>
-                            <option value="Administrativo">Administrativo</option>
-                            <option value="Almoxarifado">Almoxarifado</option>
-                            <option value="Gerencia">Gerência</option>
-                            <option value="Diretoria">Diretoria</option>
-                            <option value="Presidente">Presidente</option> -->
                         </select>
 
                         <input type="text" id="input_setor" name="usu_novo_setor" placeholder="Digite o nome do setor">
@@ -103,8 +97,6 @@
                             <?php foreach ($funcoes as $funcao): ?>
                                 <option value="<?= $funcao['fun_id'] ?>"><?= $funcao['fun_nome'] ?></option>
                             <?php endforeach; ?>
-                            <option value="AuxiliarAdministrativo">Auxiliar Administrativo</option>
-                            <option value="Supervisor">Supervisor</option>
                         </select>
 
                         <input type="text" id="input_funcao" name="usu_nova_funcao" placeholder="Digite o nome da função">

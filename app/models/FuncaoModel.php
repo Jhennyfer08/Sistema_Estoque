@@ -44,7 +44,19 @@ class FuncaoModel
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
-            throw new Exception('Erro ao selecionar os dados dos funcaes (selectAll). 402');
+            throw new Exception('Erro ao selecionar os dados dos funcaes (selectById). 402');
+        }
+    }
+
+    public function selectByName($nome): mixed
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM tb_funcao WHERE fun_nome = :nome");
+            $stmt->execute([':nome' => $nome]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao selecionar os dados das funções (selectByName). 402');
         }
     }
 }

@@ -12,7 +12,7 @@
 <body>
     <header>
         <nav>
-            <a href="retorno.php">
+            <a href="/estoque/public/cadastro/usuario">
                 < Histórico de Usuario</a>
         </nav>
     </header>
@@ -27,6 +27,7 @@
                     <th>Nome</th>
                     <th>Data Nascimento</th>
                     <th>Data Contrato</th>
+                    <th>Email</th>
                     <th>Status</th>
                     <th>Permissão</th>
                     <th>Setor</th>
@@ -43,7 +44,7 @@
                         <td><?= $usuario['usu_data_nasc'] ?></td>
                         <td><?= $usuario['usu_data_cont'] ?></td>
                         <td><?= $usuario['usu_email'] ?></td>
-                        <td><?= $usuario['usu_status'] ?></td>
+                        <td><?= $usuario['usu_modo'] ?></td>
                         <td><?= $usuario['usu_permissao'] ?></td>
                         <td><?= $usuario['set_nome'] ?></td>
                         <td><?= $usuario['fun_nome'] ?></td>

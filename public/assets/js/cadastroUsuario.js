@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         {
-            id: 'status',
+            id: 'modo',
             regra: (valor) => valor !== "",
             mensagem: 'Selecione pelo menos uma opção'
         },
@@ -113,8 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
         let valido = true;
 
         campos.forEach(config => {
@@ -130,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (valido) {
-            form.submit();
+        if (valido === false) {
+            e.preventDefault();
         }
     });
 });

@@ -35,7 +35,7 @@ class SetorModel
         }
     }
 
-    public function selectById($id): array
+    public function selectById($id): mixed
     {
         try {
             $stmt = $this->db->prepare("SELECT * FROM tb_setor WHERE set_id = :id");
@@ -46,12 +46,12 @@ class SetorModel
             throw new Exception('Erro ao selecionar os dados dos setores (selectAll). 402');
         }
     }
-    public function selectByName($nome): array
+    public function selectByName($nome): mixed
     {
         try {
             $stmt = $this->db->prepare("SELECT * FROM tb_setor WHERE set_nome = :nome");
             $stmt->execute([':nome' => $nome]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             error_log($e->getMessage(), $e->getCode());
             throw new Exception('Erro ao selecionar os dados dos setores (selectAll). 402');
