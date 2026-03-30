@@ -8,6 +8,7 @@ require_once __DIR__ . '/../models/MovimentacaoModel.php';
 
 class UsuarioController
 {
+    private $auth;
     private $usuarioModel;
     private $funcaoModel;
     private  $setorModel;
@@ -17,6 +18,7 @@ class UsuarioController
 
     public function __construct(PDO $connection)
     {
+        $this->auth = new Auth();
         $this->usuarioModel = new UsuarioModel($connection);
         $this->funcaoModel = new FuncaoModel($connection);
         $this->setorModel = new SetorModel($connection);
@@ -40,6 +42,7 @@ class UsuarioController
                 exit;
             }
 
+            $usuario = $this->auth->user();
             $dados = $this->dadosUsuario();
 
             //FK´s | ENDEREÇO | SETOR | FUNÇÃO
@@ -73,12 +76,12 @@ class UsuarioController
                 $funcao_id = $dados['funcao_id'];
             }
 
-            //Autorização do almoxarifado || Somente até o login funcionar
-            $almoxarifado = $this->setorModel->selectByName('almoxarifado');
+            //Autorização do almoxarifado
+            $almoxarifado = $this->setorModel->selectByName('Almoxarifado');
 
             $permissao = 'F';
 
-            if ($almoxarifado && $setor_id == $almoxarifado['set_id']) {
+            if ($almoxarifado && $usuario['permissao'] == $almoxarifado['set_id']) {
                 $permissao = 'A';
             } else {
                 $permissao = 'F';
@@ -165,6 +168,11 @@ class UsuarioController
         $this->usuarioModel->delete($id);
     }
 
+    //PÁGINAS DO SITE
+
+    public function cadastro(){
+        require_once __DIR__.'/../views/cadastro/cadastro.php';
+    }
 
     //AQUISIÇÃO E VALIDAÇÃO DE DADOS DO FORMULÁRIO DE CADASTRO DE USUÁRIO
     public function dadosUsuario(): array

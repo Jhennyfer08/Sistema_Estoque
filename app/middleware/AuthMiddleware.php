@@ -13,7 +13,7 @@ class AuthMiddleware
     public function handle(): void
     {
         if (!$this->auth->check()) {
-            header("Location: /login");
+            header("Location: estoque/public/auth/login");
             exit;
         }
     }

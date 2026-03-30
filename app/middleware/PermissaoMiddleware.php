@@ -14,7 +14,7 @@ class PermissaoMiddleware
     public function handle($funcionarioPermitido = []): void
     {
         if (!$this->auth->check()) {
-            header("Location: /login");
+            header("Location: /estoque/public/login");
             exit;
         }
 

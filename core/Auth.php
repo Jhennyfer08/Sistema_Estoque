@@ -8,7 +8,7 @@ class Auth
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-    } 
+    }
 
     //Atribui o usuário que fez o login á sessão
     public function login($usuario): void
@@ -36,5 +36,25 @@ class Auth
     {
         $this->start();
         return $_SESSION['usuario'] ?? null;
+    }
+
+    //Cria e imprime mensagem de erro do php para o js e html
+    public function setFlash($mensagemNome, $mensagemTexto){
+        $this->start();
+
+        $_SESSION[$mensagemNome] = $mensagemTexto;
+    }
+
+    public function showFlash($mensagemNome){
+        $this->start();
+
+        if (!isset($_SESSION[$mensagemNome])) {
+            return null;
+        }
+
+        $valor = $_SESSION[$mensagemNome];
+        unset($_SESSION[$mensagemNome]);
+
+        return $valor;
     }
 }

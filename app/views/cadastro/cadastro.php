@@ -23,7 +23,7 @@
                 <a href="/estoque/public/cadastro/usuario" class="opcao-retorno">
                     <h3>Cadastro de Usuários</h3>
                 </a>
-                <a href="cadastroMaterial.php" class="opcao-retorno">
+                <a href="/estoque/public/cadastro/material" class="opcao-retorno">
                     <h3>Cadastro de Materiais</h3>
                 </a>
             </section>

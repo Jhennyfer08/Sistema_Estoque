@@ -63,6 +63,13 @@ $rotas = [
     ],
 
     //CADASTRO USUÁRIO
+
+    'cadastro' => [
+        'controller' => UsuarioController::class,
+        'metodo' => 'create',
+        'permissao' => ['A']
+    ],
+    
     'cadastro/usuario' => [
         'controller' => UsuarioController::class,
         'metodo' => 'create',
@@ -71,6 +78,18 @@ $rotas = [
 
     'cadastro/usuario/enviar' => [
         'controller' => UsuarioController::class,
+        'metodo' => 'store',
+        'permissao' => ['A']
+    ],
+
+    'cadastro/material' => [
+        'controller' => MaterialController::class,
+        'metodo' => 'create',
+        'permissao' => ['A']
+    ],
+
+    'cadastro/material/enviar' => [
+        'controller' => MaterialController::class,
         'metodo' => 'store',
         'permissao' => ['A']
     ],
