@@ -1,0 +1,34 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.background-403 {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    background-image: url(../img/ilustracoes/403.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.background-404 {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    background-image: url(../img/ilustracoes/404.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
