@@ -9,6 +9,7 @@ require_once __DIR__ . '/../app/controllers/UsuarioController.php';
 require_once __DIR__ . '/../app/controllers/MaterialController.php';
 require_once __DIR__ . '/../app/controllers/MovimentacaoController.php';
 require_once __DIR__ . '/../app/controllers/HistoricoController.php';
+require_once __DIR__ . '/../app/controllers/FornecedorController.php';
 
 $db = new Database();
 $connection = $db->getConnection();
@@ -69,7 +70,7 @@ $rotas = [
         'metodo' => 'create',
         'permissao' => ['A']
     ],
-    
+
     'cadastro/usuario' => [
         'controller' => UsuarioController::class,
         'metodo' => 'create',
@@ -90,6 +91,18 @@ $rotas = [
 
     'cadastro/material/enviar' => [
         'controller' => MaterialController::class,
+        'metodo' => 'store',
+        'permissao' => ['A']
+    ],
+
+    'cadastro/fornecedor' => [
+        'controller' => FornecedorController::class,
+        'metodo' => 'create',
+        'permissao' => ['A']
+    ],
+
+    'cadastro/fornecedor/enviar' => [
+        'controller' => FornecedorController::class,
         'metodo' => 'store',
         'permissao' => ['A']
     ],

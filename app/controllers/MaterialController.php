@@ -1,37 +1,85 @@
 <?php
 
+require_once __DIR__ . '/../models/MaterialModel.php';
+
 class MaterialController
 {
-    protected $materialModel;
+
+
+    private $materialmodel;
 
     public function __construct(PDO $connection)
     {
-        $this->materialModel = $connection;
+        $this->materialmodel = new MaterialModel($connection);
     }
 
-    public function dadosMaterial(): array
+    public function create()
     {
+        require_once __DIR__ . '/../views/cadastro/cadastroMaterial.php';
+    }
 
+    public function store()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                exit;
+            }
+
+            $dados = $this->dadosMaterial();
+
+            $materiaExistente = $this->materialmodel->selectByCodigo($dados['codigo']);
+
+            if ($materiaExistente) {
+                $material_id = $materiaExistente['mat_id'];
+            }
+
+            $material_id = $this->materialmodel->insert([
+                'codigo' => trim($_POST['mat_codigo']),
+                'nome' => trim($_POST['mat_descricao']),
+                'quantidade' => trim($_POST['mat_quantidade']),
+                'valor' => $_POST['mat_valor'] ?? null,
+                'status' => $_POST['mat_modo'],
+                'uni_id' => $_POST['mat_unidadeMedida']
+            ]);
+
+            return $material_id;
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao cadastrar o material');
+        }
+    }
+
+    private function list()
+    {
+        try {
+            $materias = $this->materialmodel->selectAll();
+
+            require_once __DIR__ . '/../views/cadastro/historicoMaterial.php';
+        } catch (\Exception $e) {
+            error_log($e->getMessage(), $e->getCode());
+            throw new Exception('Erro ao listar materiais (list). 403');
+        }
+    }
+
+
+
+    private function dadosMaterial(): array
+    {
         $dados = [
-            'codigo' => $_POST['mat_codigo'],
-            'descricao' => $_POST['mat_descricao'],
-            'valor' => $_POST['mat_valor'],
-            'quantidade' => $_POST['mat_quantidade'],
-            'unidadeMedida' => $_POST['mat_unidadeMedida'],
-            'modo' => $_POST['mat_modo'],
-            'fornecedor' => $_POST['mat_fornecedor'],
-            'cep' => $_POST['end_cep'] ?? null,
-            'rua' => $_POST['end_rua'] ?? null,
-            'numero' => $_POST['end_numero'] ?? null,
-            'bairro' => $_POST['end_bairro'] ?? null,
-            'cidade' => $_POST['end_cidade'] ?? null,
-            'estado' => $_POST['end_estado'] ?? null
+            'id' => $_POST['mat_id'] ?? null,
+            'codigo' => trim($_POST['mat_codigo']),
+            'nome' => trim($_POST['mat_descricao']),
+            'quantidade' => trim($_POST['mat_quantidade']),
+            'valor' => $_POST['mat_valor'] ?? null,
+            'status' => $_POST['mat_modo'],
+            'uni_id' => $_POST['mat_unidadeMedida']
         ];
 
         return $dados;
     }
 
-    public function validarDados(array $dados): array{
+    public function validarDados(array $dados): array
+    {
         $erros = [];
 
         if (empty($dados['codigo'])) {

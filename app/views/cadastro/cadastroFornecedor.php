@@ -19,18 +19,18 @@
 
     <main>
         <div class="container">
-            <form action="" method="POST" id="form">
+            <form action="/estoque/public/cadastro/fornecedor/enviar" method="POST" id="form">
 
                 <section class="input-group">
                     <div class="input-item" id="nome">
                         <label for="input-nome">Nome</label>
-                        <input type="text" id="input-nome" name="end_nome">
+                        <input type="text" id="input-nome" name="for_nome">
                         <span class="form-error"></span>
                     </div>
 
                     <div class="input-item" id="cnpj">
                         <label for="input-cnpj">CNPJ</label>
-                        <input type="number" id="input-cnpj" name="end_cnpj" placeholder="000.000/0000-00">
+                        <input type="number" id="input-cnpj" name="for_cnpj" placeholder="000.000/0000-00">
                         <span class="form-error"></span>
                     </div>
                 </section>
@@ -68,7 +68,8 @@
                     </div>
                     <div class="input-item" id="estado">
                         <label for="select-estado">Estado</label>
-                        <select name="end_estado" id="select-estado"></select>
+                        <input type="text" name="end_estado" id="select-estado">
+                        <!-- <select name="end_estado" id="select-estado"></select> -->
                         <span class="form-error"></span>
                     </div>
                 </section>
